@@ -1,0 +1,23 @@
+apiVersion: 'apps/v1'
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: backend
+  template:
+    metadata:
+      labels:
+        component: backend
+    spec:
+      containers:
+        - name: app-backend
+          image: vovchikvoin/usergraphs_back:v1.0.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_HOST
+              value: app-redis-cluster-ip
+
